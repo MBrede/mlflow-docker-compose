@@ -74,7 +74,13 @@ services:
 
       # Serve artifacts through proxy (recommended for production)
       MLFLOW_SERVE_ARTIFACTS: "true"
-    command: mlflow server --backend-store-uri postgresql://${POSTGRES_USER:-mlflow}:${POSTGRES_PASSWORD:-mlflow_password}@db:5432/${POSTGRES_DB:-mlflow} --default-artifact-root s3://mlflow/ --host 0.0.0.0 --allowed-hosts "*" --cors-allowed-origins "*"
+    command: >
+      mlflow server 
+      --backend-store-uri postgresql://${POSTGRES_USER:-mlflow}:${POSTGRES_PASSWORD:-mlflow_password}@db:5432/${POSTGRES_DB:-mlflow} 
+      --default-artifact-root s3://mlflow/
+      --host 0.0.0.0 
+      --allowed-hosts "{HOSTS_ALLOWED:-*}" 
+      --cors-allowed-origins "{CORS_ALLOWED:-*}"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
       interval: 10s
