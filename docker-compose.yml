@@ -65,7 +65,7 @@ services:
       AWS_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin}
 
       # MLflow configuration
-      MLFLOW_TRACKING_URI: http://0.0.0.0:${MLFLOW_PORT:-5000}
+      MLFLOW_TRACKING_URI: http://${MLFLOW_HOST:-0.0.0.0}:${MLFLOW_PORT:-5000}
       MLFLOW_ARTIFACT_ROOT: s3://mlflow/artifacts
 
       # Serve artifacts through proxy (recommended for production)
