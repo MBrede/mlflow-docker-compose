@@ -65,7 +65,7 @@ services:
       AWS_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin}
 
       # MLflow configuration
-      MLFLOW_TRACKING_URI: http://0.0.0.0:5000
+      MLFLOW_TRACKING_URI: http://0.0.0.0:{MLFLOW_PORT:-5000}
       MLFLOW_ARTIFACT_ROOT: s3://mlflow/artifacts
 
       # Serve artifacts through proxy (recommended for production)
@@ -73,8 +73,8 @@ services:
     command: >
       mlflow server 
       --backend-store-uri postgresql://${POSTGRES_USER:-mlflow}:${POSTGRES_PASSWORD:-mlflow_password}@db:5432/${POSTGRES_DB:-mlflow}
-      --allowed-hosts "{HOSTS_ALLOWED:-*}" 
-      --cors-allowed-origins "{CORS_ALLOWED:-*}"
+      --allowed-hosts {HOSTS_ALLOWED:-"*"} 
+      --cors-allowed-origins {CORS_ALLOWED:-"*"}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
       interval: 10s
