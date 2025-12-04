@@ -75,6 +75,8 @@ services:
       --backend-store-uri postgresql://${POSTGRES_USER:-mlflow}:${POSTGRES_PASSWORD:-mlflow_password}@db:5432/${POSTGRES_DB:-mlflow}
       --allowed-hosts ${HOSTS_ALLOWED:-"*"} 
       --cors-allowed-origins ${CORS_ALLOWED:-"*"}
+      --host ${MLFLOW_HOST:-0.0.0.0}
+      --port ${MLFLOW_PORT:-5000}
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:${MLFLOW_PORT:-5000}/health"]
       interval: 10s
