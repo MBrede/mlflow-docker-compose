@@ -76,7 +76,7 @@ services:
       --allowed-hosts ${HOSTS_ALLOWED:-"*"} 
       --cors-allowed-origins ${CORS_ALLOWED:-"*"}
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:${MLFLOW_PORT:-5000}/health"]
       interval: 10s
       timeout: 5s
       retries: 3
