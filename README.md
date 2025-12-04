@@ -19,7 +19,7 @@ docker compose up -d --build
 |-----------|---------|
 | MLflow server | Tracking server for experiments and models |
 | MinIO | S3-compatible artifact storage |
-| MySQL | Backend store for experiment metadata |
+| PostgreSQL | Backend store for experiment metadata |
 
 ## Client Setup
 
