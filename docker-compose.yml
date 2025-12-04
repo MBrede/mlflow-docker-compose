@@ -60,10 +60,6 @@ services:
     ports:
         - "5000:5000"
     environment:
-        # Backend store configuration (PostgreSQL)
-      MLFLOW_BACKEND_STORE_URI: postgresql://${POSTGRES_USER:-mlflow}:${POSTGRES_PASSWORD:-mlflow_password}@postgres:5432/${POSTGRES_DB:-mlflow}
-
-      # Artifact store configuration (MinIO S3)
       MLFLOW_S3_ENDPOINT_URL: http://minio:9000
       AWS_ACCESS_KEY_ID: ${MINIO_ROOT_USER:-minioadmin}
       AWS_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin}
@@ -76,9 +72,7 @@ services:
       MLFLOW_SERVE_ARTIFACTS: "true"
     command: >
       mlflow server 
-      --backend-store-uri postgresql://${POSTGRES_USER:-mlflow}:${POSTGRES_PASSWORD:-mlflow_password}@db:5432/${POSTGRES_DB:-mlflow} 
-      --default-artifact-root s3://mlflow/
-      --host 0.0.0.0 
+      --backend-store-uri postgresql://${POSTGRES_USER:-mlflow}:${POSTGRES_PASSWORD:-mlflow_password}@db:5432/${POSTGRES_DB:-mlflow}
       --allowed-hosts "{HOSTS_ALLOWED:-*}" 
       --cors-allowed-origins "{CORS_ALLOWED:-*}"
     healthcheck:
